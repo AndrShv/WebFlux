@@ -1,0 +1,83 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+tasks.withType(JavaExec) {
+	main = 'com.example.demo.ReactiveBookstoreApplication'
+}
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Spring Security
+	implementation 'org.springframework.security:spring-security-core:6.3.4'
+	implementation 'org.springframework.security:spring-security-config:6.3.4'
+	implementation 'org.springframework.security:spring-security-web:6.3.4'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+	// Database Drivers
+	runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+	runtimeOnly 'dev.miku:r2dbc-mysql:0.8.2.RELEASE'
+	testRuntimeOnly 'com.h2database:h2'
+
+	// Reactor
+	implementation 'io.projectreactor:reactor-core:3.6.10'
+	testImplementation 'io.projectreactor:reactor-test'
+
+	// Jackson
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
+
+	// HTTP Client
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+	// Additional Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
+	// Spring DevTools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Spring Boot Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Testing Libraries
+	testImplementation 'junit:junit:4.13.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+	testImplementation 'org.mockito:mockito-core:3.7.7'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
